@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#190b31">
+  <title>Waood 💜</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      --purple: #bd8aff;
+      --light-purple: #eadcff;
+      --glass: rgba(22, 9, 42, 0.76);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: #fff;
+      background: #140923 url("images/wallpaper.jpeg") center 42% / cover fixed;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(13, 5, 28, 0.73), rgba(29, 8, 52, 0.48));
+      content: "";
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 28px 18px 64px;
+    }
+
+    .card {
+      width: min(100%, 620px);
+      padding: clamp(26px, 6vw, 54px);
+      border: 1px solid rgba(234, 220, 255, 0.28);
+      border-radius: 30px;
+      background: var(--glass);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38), 0 0 50px rgba(146, 79, 220, 0.14);
+      backdrop-filter: blur(14px);
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--light-purple);
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      color: #f1e5ff;
+      font-size: clamp(2.7rem, 11vw, 4.8rem);
+      line-height: 1;
+      text-shadow: 0 0 28px rgba(190, 137, 255, 0.55);
+    }
+
+    .intro {
+      margin-bottom: 28px;
+      color: #f3eaff;
+      font-size: clamp(1.05rem, 4vw, 1.3rem);
+    }
+
+    .password-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .password-form label {
+      font-weight: 700;
+    }
+
+    .password-form input {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 16px;
+      border: 1px solid rgba(234, 220, 255, 0.5);
+      border-radius: 15px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      text-align: center;
+    }
+
+    .password-form input:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(189, 138, 255, 0.2);
+    }
+
+    .password-form input::placeholder {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .primary-button,
+    .menu-button {
+      min-height: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 15px;
+      background: linear-gradient(135deg, #a75bdf, #7035b9);
+      box-shadow: 0 8px 24px rgba(91, 40, 145, 0.28);
+      cursor: pointer;
+      transition: transform 180ms ease, filter 180ms ease, border-color 180ms ease;
+    }
+
+    .primary-button {
+      padding: 12px 20px;
+      font-weight: 700;
+    }
+
+    .primary-button:hover,
+    .menu-button:hover {
+      filter: brightness(1.12);
+      transform: translateY(-2px);
+    }
+
+    .feedback {
+      min-height: 1.5em;
+      margin: 2px 0 0;
+      color: #f1dcff;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .welcome-card {
+      width: min(100%, 850px);
+      padding: clamp(22px, 5vw, 44px);
+    }
+
+    .welcome-card h2 {
+      margin-bottom: 10px;
+      font-size: clamp(1.8rem, 7vw, 2.7rem);
+    }
+
+    .welcome-card > p {
+      margin-bottom: 25px;
+      color: #ecddff;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      direction: ltr;
+    }
+
+    .menu-button {
+      padding: 16px 10px;
+      font-size: clamp(0.9rem, 3vw, 1.05rem);
+      font-weight: 700;
+    }
+
+    .menu-button[aria-pressed="true"] {
+      border-color: #f1deff;
+      box-shadow: 0 0 0 2px rgba(236, 210, 255, 0.24), 0 8px 24px rgba(91, 40, 145, 0.28);
+    }
+
+    .content-panel {
+      margin-top: 20px;
+      padding: clamp(16px, 4vw, 24px);
+      border: 1px solid rgba(234, 220, 255, 0.2);
+      border-radius: 20px;
+      background: rgba(8, 3, 18, 0.36);
+      text-align: right;
+    }
+
+    .content-panel h3 {
+      margin: 0 0 12px;
+      color: #f1e5ff;
+      font-size: 1.25rem;
+    }
+
+    .audio-player {
+      width: 100%;
+      margin-top: 18px;
+      accent-color: var(--purple);
+    }
+
+    .track-card {
+      position: relative;
+      display: flex;
+      min-height: 340px;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      padding: clamp(18px, 4vw, 26px);
+      border: 1px solid rgba(216, 177, 255, 0.3);
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(18, 7, 32, 0.48), rgba(18, 7, 32, 0.78)),
+        url("images/bts2.jpeg") center 38% / cover;
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), 0 12px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .track-card.swim-track {
+      background:
+        linear-gradient(180deg, rgba(18, 7, 32, 0.42), rgba(18, 7, 32, 0.76)),
+        url("images/bts3.jpeg") center 30% / cover;
+    }
+
+    .track-card.come-over-track {
+      background:
+        linear-gradient(180deg, rgba(18, 7, 32, 0.42), rgba(18, 7, 32, 0.76)),
+        url("images/bts4.jpeg") center 32% / cover;
+    }
+
+    .track-card.danger-track {
+      background:
+        linear-gradient(180deg, rgba(18, 7, 32, 0.42), rgba(18, 7, 32, 0.76)),
+        url("images/bts5.jpeg") center 32% / cover;
+    }
+
+    .track-card.like-animal-track {
+      background:
+        linear-gradient(180deg, rgba(18, 7, 32, 0.42), rgba(18, 7, 32, 0.76)),
+        url("images/bts6.jpeg") center 32% / cover;
+    }
+
+    .track-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .track-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 12px;
+      place-items: center;
+      border: 1px solid rgba(234, 220, 255, 0.35);
+      border-radius: 50%;
+      background: rgba(189, 138, 255, 0.18);
+      color: #f1dcff;
+      font-size: 1.35rem;
+    }
+
+    .track-title {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(1.25rem, 5vw, 1.7rem);
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 18px rgba(189, 138, 255, 0.4);
+    }
+
+    .track-artist {
+      margin: 6px 0 0;
+      color: #d9c4f4;
+      font-size: 0.95rem;
+    }
+
+    .picture-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+      align-items: start;
+      gap: 14px;
+    }
+
+    .picture-gallery img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      border: 1px solid rgba(234, 220, 255, 0.28);
+      border-radius: 16px;
+      background: rgba(8, 3, 18, 0.5);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
+      object-fit: cover;
+      animation: picture-appear 420ms ease both;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    .picture-gallery img:hover {
+      z-index: 1;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.34), 0 0 20px rgba(189, 138, 255, 0.22);
+      transform: translateY(-5px) scale(1.02);
+    }
+
+    .picture-gallery img:nth-child(2) {
+      animation-delay: 80ms;
+    }
+
+    .picture-gallery img:nth-child(3) {
+      animation-delay: 160ms;
+    }
+
+    @keyframes picture-appear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .grandpa-area {
+      position: fixed;
+      z-index: 1;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 46px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .grandpa-word {
+      position: absolute;
+      top: 15px;
+      left: 18px;
+      padding: 2px 5px;
+      border: 0;
+      background: transparent;
+      color: rgba(245, 232, 255, 0.78);
+      font-size: 9px;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: top 140ms ease, left 140ms ease;
+    }
+
+    .grandpa-word:focus-visible,
+    button:focus-visible {
+      outline: 2px solid #f1deff;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 540px) {
+      body {
+        background-attachment: scroll;
+        background-position: center center;
+      }
+
+      .page {
+        padding: 20px 14px 58px;
+      }
+
+      .card {
+        border-radius: 24px;
+      }
+
+      .menu {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-button {
+        min-height: 48px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="card" id="lock-screen" aria-labelledby="page-title">
+      <p class="eyebrow">A little surprise, made just for you</p>
+      <h1 id="page-title">Waood <span aria-hidden="true">💜</span></h1>
+      <p class="intro">خلي شغفك مستمر ✨</p>
+
+      <form class="password-form" id="password-form">
+        <label for="password">مين حبيب جدو؟</label>
+        <input id="password" name="password" type="text" placeholder="اكتبي الإجابة هنا" autocomplete="off" required>
+        <button class="primary-button" type="submit"> متاكدة</button>
+        <p class="feedback" id="password-feedback" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="card welcome-card hidden" id="home-screen" aria-labelledby="welcome-title">
+      <p class="eyebrow">A page made with love</p>
+      <h2 id="welcome-title">دلوعة جدو 💜</h2>
+      <p>اختاري حاجة من دول يا Waood</p>
+
+      <nav class="menu" aria-label="اختاري مفاجأتك">
+        <button class="menu-button" type="button" data-panel="music" aria-pressed="true">My fav music 🎵</button>
+        <button class="menu-button" type="button" data-panel="pictures" aria-pressed="false">My pictures 📸</button>
+      </nav>
+
+      <section class="content-panel" id="content-panel" aria-live="polite">
+        <h3 id="panel-title">My fav music 🎵</h3>
+        <div class="track-list">
+          <div class="track-card">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">BODY TO BODY</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/BODY%20TO%20BODY%20By%20BTS%20(%EB%B0%A9%ED%83%84%EC%86%8C%EB%85%84%EB%8B%A8)%20Arabic%20sub%20%D9%85%D8%AA%D8%B1%D8%AC%D9%85%D8%A9.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+          <div class="track-card swim-track">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">SWIM</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/%D8%A3%D8%BA%D9%86%D9%8A%D8%A9%20%D8%A8%D8%A7%D9%86%D9%82%D8%AA%D8%A7%D9%86%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9%20%F0%9D%90%92%F0%9D%90%B0%F0%9D%90%A2%F0%9D%90%A6%20%D9%85%D8%AA%D9%80%D8%B1%D8%AC%D9%85%D8%A9%20BTS%27s%20new%20song%20with%20Arabic%20subtitles.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+          <div class="track-card come-over-track">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">Come Over</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/COME%20OVER%20By%20BTS%20%28%EB%B0%A9%ED%83%84%EC%86%8C%EB%85%84%EB%8B%A8%29%20Arabic%20sub%20lyrics%20%D9%85%D8%AA%D8%B1%D8%AC%D9%85%D8%A9.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+          <div class="track-card danger-track">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">BTS Danger</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/BTS%20danger.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+          <div class="track-card like-animal-track">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">Like Animal</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/like%20animal.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="grandpa-area" id="grandpa-area" aria-label="العبارة المتحركة">
+    <button class="grandpa-word" id="grandpa-word" type="button" title="وعودة الحفيدة الصغرى">وعودة الحفيدة الصغرى</button>
+  </div>
+
+  <script>
+    const passwordForm = document.querySelector("#password-form");
+    const passwordInput = document.querySelector("#password");
+    const feedback = document.querySelector("#password-feedback");
+    const lockScreen = document.querySelector("#lock-screen");
+    const homeScreen = document.querySelector("#home-screen");
+    const menuButtons = document.querySelectorAll(".menu-button");
+    const contentPanel = document.querySelector("#content-panel");
+    const grandpaArea = document.querySelector("#grandpa-area");
+    const grandpaWord = document.querySelector("#grandpa-word");
+
+    const panels = {
+      music: {
+        title: "My fav music 🎵",
+        content: `<div class="track-list">
+          <div class="track-card">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">BODY TO BODY</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/BODY%20TO%20BODY%20By%20BTS%20(%EB%B0%A9%ED%83%84%EC%86%8C%EB%85%84%EB%8B%A8)%20Arabic%20sub%20%D9%85%D8%AA%D8%B1%D8%AC%D9%85%D8%A9.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+          <div class="track-card swim-track">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">SWIM</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/%D8%A3%D8%BA%D9%86%D9%8A%D8%A9%20%D8%A8%D8%A7%D9%86%D9%82%D8%AA%D8%A7%D9%86%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9%20%F0%9D%90%92%F0%9D%90%B0%F0%9D%90%A2%F0%9D%90%A6%20%D9%85%D8%AA%D9%80%D8%B1%D8%AC%D9%85%D8%A9%20BTS%27s%20new%20song%20with%20Arabic%20subtitles.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+          <div class="track-card come-over-track">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">Come Over</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/COME%20OVER%20By%20BTS%20%28%EB%B0%A9%ED%83%84%EC%86%8C%EB%85%84%EB%8B%A8%29%20Arabic%20sub%20lyrics%20%D9%85%D8%AA%D8%B1%D8%AC%D9%85%D8%A9.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+          <div class="track-card danger-track">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">BTS Danger</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/BTS%20danger.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+          <div class="track-card like-animal-track">
+            <span class="track-icon" aria-hidden="true">♫</span>
+            <h4 class="track-title">Like Animal</h4>
+            <p class="track-artist">BTS</p>
+            <audio class="audio-player" controls preload="metadata">
+              <source src="Aduio/like%20animal.mp3" type="audio/mpeg">
+              المتصفح لا يدعم تشغيل الصوت.
+            </audio>
+          </div>
+        </div>`
+      },
+      pictures: {
+        title: "My pictures 📸",
+        content: `<div class="picture-gallery" aria-label="صور Waood">
+          <img src="images/wad1.jpeg" alt="صورة Waood الأولى" loading="lazy">
+          <img src="images/wad2.jpeg" alt="صورة Waood الثانية" loading="lazy">
+          <img src="images/wad3.jpeg" alt="صورة Waood الثالثة" loading="lazy">
+        </div>`
+      },
+    };
+
+    contentPanel.innerHTML = `<h3 id="panel-title">${panels.music.title}</h3>${panels.music.content}`;
+
+    passwordForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const answer = passwordInput.value.trim().replace(/\s+/g, "");
+
+      if (answer !== "انا" && answer !== "أنا") {
+        feedback.textContent = "مش دي الإجابة يا Waood، جربي تاني 💜";
+        passwordInput.select();
+        return;
+      }
+
+      feedback.textContent = "لأ، إنتِ قلب جدو 💜";
+      passwordForm.querySelector("button").disabled = true;
+      window.setTimeout(() => {
+        lockScreen.classList.add("hidden");
+        homeScreen.classList.remove("hidden");
+        passwordForm.querySelector("button").disabled = false;
+      }, 900);
+    });
+
+    menuButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedPanel = panels[button.dataset.panel];
+        menuButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        contentPanel.innerHTML = `<h3 id="panel-title">${selectedPanel.title}</h3>${selectedPanel.content}`;
+      });
+    });
+
+    grandpaWord.addEventListener("click", () => {
+      const maxLeft = Math.max(0, grandpaArea.clientWidth - grandpaWord.offsetWidth);
+      const maxTop = Math.max(0, grandpaArea.clientHeight - grandpaWord.offsetHeight);
+      grandpaWord.style.left = `${Math.random() * maxLeft}px`;
+      grandpaWord.style.top = `${Math.random() * maxTop}px`;
+    });
+  </script>
+</body>
+</html>
